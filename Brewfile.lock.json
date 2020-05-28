@@ -1,0 +1,48 @@
+{
+  "entries": {
+    "brew": {
+      "libexif": {
+        "version": "0.6.22",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/libexif-0.6.22.catalina.bottle.tar.gz",
+              "sha256": "7379f6990018006122bba69098864e8877e8e6e7be3af535f7e301d8ff097e98"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/libexif-0.6.22.mojave.bottle.tar.gz",
+              "sha256": "c20d311fbd1846ce2603950ec9ad9b3b6e8202bf2f97e9aab328c05dc568fcfe"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/libexif-0.6.22.high_sierra.bottle.tar.gz",
+              "sha256": "8b1c7cf6ec777090ce22ccf5c426867948a54da9378e0c9b91d85175eaea4f81"
+            }
+          }
+        }
+      },
+      "imgcat": {
+        "version": "2.3.2",
+        "bottle": false
+      }
+    },
+    "tap": {
+      "eddieantonio/eddieantonio": {
+        "revision": "49d30e7e865f57d8647fbff154af1c2c4c5fb424"
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.2.17",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "64009453ce0127573ee8bb75168a06debe56d344",
+        "CLT": "11.3.1.0.1.1576735732",
+        "Xcode": "11.4.1",
+        "macOS": "10.15.3"
+      }
+    }
+  }
+}
