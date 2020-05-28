@@ -19,7 +19,7 @@ puts "Scanning #{importFolder}"
 i = 0
 
 # These will be updated as we go
-previous_image = previous_filepath = nil
+previous_datetime = previous_filepath = nil
 
 Dir.glob("#{importFolder}/**/*.{jpg,jpeg,JPG,JPEG,heic,HEIC}") do |filepath|
   i += 1
@@ -31,13 +31,7 @@ Dir.glob("#{importFolder}/**/*.{jpg,jpeg,JPG,JPEG,heic,HEIC}") do |filepath|
   exif_date = `exiftool -DateTimeOriginal \"#{filepath}\" | awk '{ print $4 " " $5 }'`
   
   if exif_date == ""
-    puts "Skipping: Could not read EXIF data for \"#{filepath}\""
-    next
-  end
-  
-  date_time = DateTime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
-
-  if !date_time
+    
     if !previous_filepath
       puts "Skipping: Couldn't find the date time"
       next
@@ -58,13 +52,23 @@ Dir.glob("#{importFolder}/**/*.{jpg,jpeg,JPG,JPEG,heic,HEIC}") do |filepath|
 
     elsif answer == "y"
       puts "answered! #{answer}"
-      image = previous_image
+      date_time = previous_datetime
 
     else
       # Clearly we've moved on in time
-      previous_image = previous_filepath = nil
+      previous_datetime = previous_filepath = nil
       puts "Skipping: Meh entering a date here would be annoying so just figure it out yourself"
       next
+    end
+
+  else
+    # Maybe its this format: 2018:07:15 12:16:59
+    begin
+      date_time = DateTime.strptime(exif_date, '%Y:%m:%d %H:%M:%S')
+    
+      # maybe its this format: 2018-04-29 11:48:45
+    rescue ArgumentError
+      date_time = DateTime.strptime(exif_date, '%Y-%m-%d %H:%M:%S')
     end
   end
 
@@ -93,5 +97,5 @@ Dir.glob("#{importFolder}/**/*.{jpg,jpeg,JPG,JPEG,heic,HEIC}") do |filepath|
   system 'mv', filepath, dest_filepath
 
   previous_filepath = dest_filepath
-  previous_image = image
+  previous_datetime = date_time
 end
